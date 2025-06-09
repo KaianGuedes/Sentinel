@@ -1,0 +1,32 @@
+name: Sentinel
+main: dev.war.sentinel.Sentinel
+version: ${version}
+api-version: ${apiVersion}
+commands:
+  login:
+    aliases:
+      - l
+    description: Logs in with the registered password
+    usage: /login <password>
+    permission: sentinel.login
+    default: true
+
+  register:
+    aliases:
+      - r
+    description: Registers a new account
+    usage: /register <password>
+    permission: sentinel.register
+    default: true
+
+  changepassword:
+    description: Changes your account password
+    usage: /changepassword <oldPassword> <newPassword>
+    permission: sentinel.changepassword
+    default: true
+
+  unregister:
+    description: Deletes an existing account
+    usage: /unregister <player>
+    permission: sentinel.unregister
+    default: op
