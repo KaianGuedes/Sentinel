@@ -2,6 +2,15 @@
 
 **Sentinel** is a lightweight, powerful and secure authentication plugin for offline mode Minecraft servers. Built with simplicity and safety in mind, it ensures that players register and log in before interacting with the world, protecting your server from unauthorized access and potential exploits.
 
+<p align="center">
+  <a href="https://modrinth.com/plugin/seu-plugin-id">
+    <img src="https://img.shields.io/badge/Modrinth-Download-1bd96a?style=flat-square&logo=modrinth&logoColor=white" alt="Modrinth">
+  </a>
+  <a href="https://github.com/KaianGuedes/Sentinel/releases">
+    <img src="https://img.shields.io/github/v/release/KaianGuedes/Sentinel?color=4183c4&label=Release&logo=github&style=flat-square" alt="GitHub Release">
+  </a>
+</p>
+
 ---
 
 ## 🔧 Installation
