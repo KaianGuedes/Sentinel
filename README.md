@@ -24,7 +24,6 @@
 ## 🤝 Planned  / Coming Soon
 - 🌍 Multi-language support (currently only hardcoded Brazilian Portuguese).
 - ⚙️ Configurable settings via a config file
-- 🛠️ Command permissions.
 - 🧹 Optimizations, JavaDocs, internal refactoring
 - 📦 Single-JAR support for multiple Minecraft versions
 
