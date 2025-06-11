@@ -4,29 +4,40 @@ version: ${version}
 api-version: ${apiVersion}
 commands:
   login:
-    aliases:
-      - l
+    aliases: [l]
     description: Logs in with the registered password
     usage: /login <password>
     permission: sentinel.login
-    default: true
 
   register:
-    aliases:
-      - r
+    aliases: [r]
     description: Registers a new account
     usage: /register <password>
     permission: sentinel.register
-    default: true
 
   changepassword:
     description: Changes your account password
     usage: /changepassword <oldPassword> <newPassword>
     permission: sentinel.changepassword
-    default: true
 
   unregister:
     description: Deletes an existing account
     usage: /unregister <player>
     permission: sentinel.unregister
+
+permissions:
+  sentinel.login:
+    description: Allows player to log in
+    default: true
+
+  sentinel.register:
+    description: Allows player to register
+    default: true
+
+  sentinel.changepassword:
+    description: Allows player to change their password
+    default: true
+
+  sentinel.unregister:
+    description: Allows admin to unregister accounts
     default: op

@@ -28,7 +28,7 @@ public class Commands {
             public Result filter(LogEvent event) {
                 String message = event.getMessage().getFormattedMessage();
 
-                if (message.matches(".*issued server command: /(login|l|register|r|changepassword)(\\s|$).*")) {
+                if (message.matches(".*issued server command: /(login|register|changepassword|unregister|l|r)(\\s.*|$)")) {
                     return Result.DENY;
                 }
 

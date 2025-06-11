@@ -76,7 +76,8 @@ public class PlayerListener implements Listener {
 
         if (!authManager.isLoggedIn(p.getUniqueId())) {
             String msg = e.getMessage().toLowerCase();
-            if (!(msg.startsWith("/login") || msg.startsWith("/register"))) {
+            if (!(msg.startsWith("/login") || msg.startsWith("/register") || 
+                  msg.startsWith("/l ") || msg.startsWith("/r "))) {
                 p.sendMessage(Component.text("Você deve se autenticar primeiro!", NamedTextColor.RED));
                 e.setCancelled(true);
             }
