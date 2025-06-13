@@ -12,9 +12,6 @@
   <a href="https://www.spigotmc.org/resources/sentinel.125984/">
     <img src="https://img.shields.io/badge/Spigot-Download-orange?style=flat-square&logo=spigotmc&logoColor=white" alt="SpigotMC">
   </a>
-  <a href="https://hangar.papermc.io/KaianGuedes/SentinelAuth">
-    <img src="https://img.shields.io/badge/Paper-Hangar-ffcc00?style=flat-square&logo=papermc&logoColor=white" alt="PaperMC Hangar">
-  </a>
 </p>
 
 ---
