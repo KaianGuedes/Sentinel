@@ -1,6 +1,6 @@
 # Sentinel
 
-**Sentinel** is a lightweight, powerful and secure authentication plugin for offline mode Minecraft servers. Built with simplicity and safety in mind, it ensures that players register and log in before interacting with the world, protecting your server from unauthorized access and potential exploits.
+**Sentinel** is a lightweight, powerful and secure authentication plugin for Minecraft servers. Built with simplicity and safety in mind, it ensures that players register and log in before interacting with the world, protecting your server from unauthorized access and potential exploits.
 
 <p align="center">
   <a href="https://github.com/KaianGuedes/Sentinel/releases">
