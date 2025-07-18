@@ -1,6 +1,6 @@
 # Sentinel
 
-**Sentinel** is a lightweight, powerful and secure authentication plugin for Minecraft servers. Built with simplicity and safety in mind, it ensures that players register and log in before interacting with the world, protecting your server from unauthorized access and potential exploits.
+**Sentinel** is a lightweight, powerful and secure authentication plugin for 1.20+ Minecraft servers. Built with simplicity and safety in mind, it ensures that players register and log in before interacting with the world, protecting your server from unauthorized access and potential exploits.
 
 <p align="center">
   <a href="https://github.com/KaianGuedes/Sentinel/releases">
@@ -11,6 +11,9 @@
   </a>
   <a href="https://www.spigotmc.org/resources/sentinel.125984/">
     <img src="https://img.shields.io/badge/Spigot-Download-orange?style=flat-square&logo=spigotmc&logoColor=white" alt="SpigotMC">
+  </a> <br>
+  <a href="https://www.codefactor.io/repository/github/kaianguedes/sentinel" style="display:inline-block; border-radius:8px; overflow:hidden; box-shadow: 0 0 5px rgba(0,0,0,0.2);">
+    <img src="https://www.codefactor.io/repository/github/kaianguedes/sentinel/badge" alt="CodeFactor" style="display:block; border:none;">
   </a>
 </p>
 
@@ -22,15 +25,10 @@
 3. Start or restart your Minecraft server.
 4. Sentinel will auto generate its storage file in `plugins/Sentinel/auth.db`.
 
-> ⚠️ Currently only supports **Brazilian Portuguese** messages (more languages coming soon).
+## 📢 Planned  / Coming Soon
+- Currently no planned features, but open to suggestions and pull requests!
 
-## 🤝 Planned  / Coming Soon
-- 🌍 Multi-language support (currently only hardcoded Brazilian Portuguese).
-- ⚙️ Configurable settings via a config file
-- 🧹 Optimizations, JavaDocs, internal refactoring
-- 📦 Single-JAR support for multiple Minecraft versions
-
-## 📢 Need Help or Want to Contribute?
+## 🤝 Need Help or Want to Contribute?
 Found a bug? Have a suggestion? Want to help improve it?
 You can:
 - Open [issues](https://github.com/KaianGuedes/Sentinel/issues) for bugs, ideas, or feature requests.
@@ -41,7 +39,7 @@ You can:
 
 ## 🛠️ Developer Info
 Built with:
-- Java 21
+- Java 17
 - Gradle
 - Paper API
 
