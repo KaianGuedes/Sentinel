@@ -1,10 +1,12 @@
 package dev.war.sentinel.managers;
 
+import java.io.File;
 import java.sql.*;
 import java.util.UUID;
 import java.util.logging.Level;
 
 import dev.war.sentinel.Sentinel;
+import dev.war.sentinel.utils.Messages;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class DatabaseManager {
@@ -13,7 +15,7 @@ public class DatabaseManager {
 
     public void connect() {
         try {
-            java.io.File dbDir = new java.io.File("plugins/Sentinel");
+            File dbDir = new File("plugins/Sentinel");
             if (!dbDir.exists()) dbDir.mkdirs();
 
             connection = DriverManager.getConnection("jdbc:sqlite:plugins/Sentinel/auth.db");
@@ -28,7 +30,7 @@ public class DatabaseManager {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao conectar banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.connect_error"), e);
         }
     }
 
@@ -36,7 +38,7 @@ public class DatabaseManager {
         try {
             if (connection != null && !connection.isClosed()) connection.close();
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao encerrar conexão com o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.close_error"), e);
         }
     }
 
@@ -50,7 +52,7 @@ public class DatabaseManager {
             stmt.close();
             return exists;
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao acessar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.access_error"), e);
             return false;
         }
     }
@@ -71,7 +73,7 @@ public class DatabaseManager {
             stmt.close();
             return valid;
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao acessar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.access_error"), e);
             return false;
         }
     }
@@ -86,7 +88,7 @@ public class DatabaseManager {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao alterar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.update_error"), e);
         }
     }
 
@@ -97,7 +99,7 @@ public class DatabaseManager {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao alterar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.update_error"), e);
         }
     }
 
@@ -110,10 +112,9 @@ public class DatabaseManager {
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao alterar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.update_error"), e);
         }
     }
-
 
     public String getIP(UUID uuid) {
         try {
@@ -127,7 +128,7 @@ public class DatabaseManager {
             stmt.close();
             return ip;
         } catch (SQLException e) {
-            Sentinel.getInstance().getLogger().log(Level.SEVERE, "Erro ao acessar o banco de dados", e);
+            Sentinel.getInstance().getLogger().log(Level.SEVERE, Messages.get("server.database.access_error"), e);
             return null;
         }
     }

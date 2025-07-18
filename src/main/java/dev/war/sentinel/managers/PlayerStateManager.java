@@ -1,10 +1,11 @@
 package dev.war.sentinel.managers;
 
+import dev.war.sentinel.Sentinel;
+import dev.war.sentinel.utils.uuid.UUIDUtils;
 import dev.war.sentinel.utils.pdc.PlayerPersistentData;
 import dev.war.sentinel.utils.pdc.PlayerPersistentData.PlayerStoredData;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -14,15 +15,16 @@ import java.util.UUID;
 
 public class PlayerStateManager {
 
-    private final Plugin plugin;
+    private final Sentinel plugin;
     private final Set<UUID> restrictedPlayers = new HashSet<>();
 
-    public PlayerStateManager(Plugin plugin) {
+    public PlayerStateManager(Sentinel plugin) {
         this.plugin = plugin;
     }
 
     public void restrict(Player player) {
-        UUID uuid = player.getUniqueId();
+        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
+
         if (restrictedPlayers.contains(uuid)) return;
 
         PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
@@ -43,7 +45,7 @@ public class PlayerStateManager {
     }
 
     public void restoreState(Player player) {
-        UUID uuid = player.getUniqueId();
+        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
         if (!restrictedPlayers.contains(uuid)) return;
 
         PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
@@ -73,8 +75,7 @@ public class PlayerStateManager {
     }
 
     public void saveIfNotRestricted(Player player) {
-        UUID uuid = player.getUniqueId();
-        if (!isRestricted(uuid)) {
+        if (!isRestricted(player)) {
             PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
             pdc.saveAll(
                     player.getActivePotionEffects(),
@@ -90,6 +91,6 @@ public class PlayerStateManager {
     }
 
     public boolean isRestricted(Player player) {
-        return isRestricted(player.getUniqueId());
+        return isRestricted(UUIDUtils.getCorrectUUID(player.getName()));
     }
 }

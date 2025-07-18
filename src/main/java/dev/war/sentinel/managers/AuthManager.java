@@ -1,6 +1,7 @@
 package dev.war.sentinel.managers;
 
 import dev.war.sentinel.utils.IPUtils;
+import dev.war.sentinel.utils.uuid.UUIDUtils;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -59,7 +60,7 @@ public class AuthManager {
     }
 
     public boolean autoLogin(Player player) {
-        UUID uuid = player.getUniqueId();
+        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
         String ip = IPUtils.getIP(player);
 
         if (!isRegistered(uuid)) return false;

@@ -1,5 +1,6 @@
 package dev.war.sentinel.utils.pdc;
 
+import dev.war.sentinel.compat.Compat;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -89,7 +90,7 @@ public class PlayerPersistentData extends AbstractPersistentData {
 
             PotionEffectType type = null;
             if (key != null) {
-                type = Registry.EFFECT.get(key);
+                type = Compat.getAdapter().getMobEffect(key);
             }
 
             if (type == null) continue;

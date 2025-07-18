@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cUso: /sentinel reloadlang"
+  language_reloaded: "&dIdioma do servidor recarregado!"
+
+changepassword:
+  usage: "&dUso correto: /changepassword <senha antiga> <senha nova>"
+  not_logged_in: "&cVocê precisa estar logado para mudar a senha."
+  wrong_old_password: "&cSenha antiga incorreta."
+  success: "&dSenha alterada com sucesso!"
+
+login:
+  usage: "&dUso correto: /login <senha>"
+  not_registered: "&cVocê não está registrado."
+  already_logged_in: "&cVocê já está logado."
+  wrong_password: "&cSenha incorreta."
+  success: "&dLogin bem-sucedido!"
+
+register:
+  usage: "&dUso correto: /register <senha>"
+  already_registered: "&cVocê já está registrado."
+  success: "&dRegistrado com sucesso!"
+
+unregister:
+  no_permission: "&cApenas operadores podem usar este comando."
+  usage: "&dUso correto: /unregister <player>"
+  not_registered: "&cEste jogador não está registrado."
+  success: "&dConta de %player% removida com sucesso."
+  kicked: "&cSua conta foi desregistrada."
+
+auth:
+  already_logged_in: "&cSua conta já está conectada de outro local."
+  must_authenticate: "&cVocê deve se autenticar primeiro!"
+  auto_login_success: "&dAutologado com sucesso!"
+  prompt_login: "&dUse /login <senha>"
+  prompt_register: "&dUse /register <senha>"
+
+server:
+  only_players: "Comando apenas para jogadores."
+  login_success: "Login bem-sucedido para o jogador '%player%' no IP %ip%"
+  login_failed: "Tentativa de login falha para o jogador '%player%' no IP %ip%"
+  password_changed: "Senha do jogador '%player%' foi alterada pelo IP %ip%"
+  register_success: "Registro bem-sucedido para o jogador '%player%' no IP %ip%"
+  session_resumed: "Sessão para o jogador '%player%' foi resumida no IP %ip%"
+  disable.saving_error: "Erro ao salvar o estado do jogador %player%: %error%"
+  database:
+    connect_error: "Erro ao conectar ao banco de dados"
+    close_error: "Erro ao encerrar conexão com o banco de dados"
+    access_error: "Erro ao acessar o banco de dados"
+    update_error: "Erro ao alterar o banco de dados"

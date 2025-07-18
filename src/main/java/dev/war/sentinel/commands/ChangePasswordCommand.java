@@ -2,13 +2,16 @@ package dev.war.sentinel.commands;
 
 import dev.war.sentinel.Sentinel;
 import dev.war.sentinel.managers.AuthManager;
+import dev.war.sentinel.utils.AnsiColor;
 import dev.war.sentinel.utils.IPUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import dev.war.sentinel.utils.Messages;
+import dev.war.sentinel.utils.uuid.UUIDUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class ChangePasswordCommand implements CommandExecutor {
 
@@ -21,33 +24,36 @@ public class ChangePasswordCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage(Component.text("Comando apenas para jogadores.", NamedTextColor.RED));
+        sender.sendMessage(Messages.getComponent("server.only_players"));
             return true;
         }
 
         if (args.length != 2) {
-            player.sendMessage(Component.text("Uso correto: /changepassword <senha antiga> <senha nova>", NamedTextColor.RED));
+            player.sendMessage(Messages.getComponent(player, "changepassword.usage"));
             return true;
         }
 
-        if (!authManager.isLoggedIn(player.getUniqueId())) {
-            player.sendMessage(Component.text("Você precisa estar logado para mudar a senha.", NamedTextColor.RED));
+        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
+
+        if (!authManager.isLoggedIn(uuid)) {
+            player.sendMessage(Messages.getComponent(player, "changepassword.not_logged_in"));
             return true;
         }
 
         String oldPassword = args[0];
         String newPassword = args[1];
 
-        if (!authManager.validatePassword(player.getUniqueId(), oldPassword)) {
-            player.sendMessage(Component.text("Senha antiga incorreta.", NamedTextColor.RED));
+        if (!authManager.validatePassword(uuid, oldPassword)) {
+            player.sendMessage(Messages.getComponent("changepassword.wrong_old_password"));
             return true;
         }
 
-        authManager.changePassword(player.getUniqueId(), newPassword);
-        Sentinel.getInstance().getLogger().info("\u001B[95mSenha do jogador '"
-                + player.getName() + "' foi alterada pelo IP " + IPUtils.getIP(player) + "\u001B[0m");
+        authManager.changePassword(uuid, newPassword);
+        Sentinel.getInstance().getLogger().info(AnsiColor.LIGHT_PURPLE + Messages.get("server.password_changed")
+                .replace("%player%", player.getName())
+                .replace("%ip%", IPUtils.getIP(player)) + AnsiColor.RESET);
 
-        player.sendMessage(Component.text("Senha alterada com sucesso!", NamedTextColor.LIGHT_PURPLE));
+        player.sendMessage(Messages.getComponent("changepassword.success"));
         return true;
     }
 }

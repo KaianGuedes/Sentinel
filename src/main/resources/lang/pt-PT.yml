@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cUso: /sentinel reloadlang"
+  language_reloaded: "&dIdioma do servidor recarregado!"
+
+changepassword:
+  usage: "&dUso correto: /changepassword <palavra-passe antiga> <palavra-passe nova>"
+  not_logged_in: "&cTem de estar autenticado para alterar a palavra-passe."
+  wrong_old_password: "&cPalavra-passe antiga incorreta."
+  success: "&dPalavra-passe alterada com sucesso!"
+
+login:
+  usage: "&dUso correto: /login <palavra-passe>"
+  not_registered: "&cNão está registado."
+  already_logged_in: "&cJá está autenticado."
+  wrong_password: "&cPalavra-passe incorreta."
+  success: "&dAutenticação bem-sucedida!"
+
+register:
+  usage: "&dUso correto: /register <palavra-passe>"
+  already_registered: "&cJá está registado."
+  success: "&dRegisto efetuado com sucesso!"
+
+unregister:
+  no_permission: "&cApenas operadores podem usar este comando."
+  usage: "&dUso correto: /unregister <jogador>"
+  not_registered: "&cEste jogador não está registado."
+  success: "&dConta de %player% removida com sucesso."
+  kicked: "&cA sua conta foi removida."
+
+auth:
+  already_logged_in: "&cA sua conta já está autenticada a partir de outra localização."
+  must_authenticate: "&cTem de se autenticar primeiro!"
+  auto_login_success: "&dAutenticação automática bem-sucedida!"
+  prompt_login: "&dUse /login <palavra-passe>"
+  prompt_register: "&dUse /register <palavra-passe>"
+
+server:
+  only_players: "Comando apenas disponível para jogadores."
+  login_success: "Autenticação bem-sucedida para o jogador '%player%' do IP %ip%"
+  login_failed: "Tentativa de autenticação falhada para o jogador '%player%' do IP %ip%"
+  password_changed: "Palavra-passe do jogador '%player%' alterada a partir do IP %ip%"
+  register_success: "Registo bem-sucedido para o jogador '%player%' do IP %ip%"
+  session_resumed: "Sessão retomada para o jogador '%player%' do IP %ip%"
+  disable.saving_error: "Erro ao guardar o estado do jogador %player%: %error%"
+  database:
+    connect_error: "Erro ao ligar à base de dados."
+    close_error: "Erro ao fechar a ligação à base de dados."
+    access_error: "Erro no acesso à base de dados."
+    update_error: "Erro na atualização da base de dados."

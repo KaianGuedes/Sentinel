@@ -1,0 +1,14 @@
+# Server's language (used mainly for console logs).
+# Default languages included:
+# en-US, en-GB, es-ES, pt-BR, pt-PT, de-DE, ru-RU
+# You can add more languages by creating a new YAML file in
+# the "lang" folder with the language code as the file name.
+language: en-US
+
+
+# Determines how player UUIDs are resolved.
+# Options:
+#   adapt    - Automatically choose based on the server's online mode.
+#   online   - Use Mojang authenticated UUIDs. (accounts tied to Mojang accounts).
+#   offline  - Generate UUIDs based on player names (accounts tied to usernames).
+uuid-mode: adapt

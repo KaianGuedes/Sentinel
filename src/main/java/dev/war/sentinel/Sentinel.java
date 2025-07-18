@@ -1,11 +1,15 @@
 package dev.war.sentinel;
 
 import dev.war.sentinel.commands.*;
+import dev.war.sentinel.compat.Compat;
 import dev.war.sentinel.listeners.PlayerListener;
 import dev.war.sentinel.managers.AuthManager;
 import dev.war.sentinel.managers.DatabaseManager;
 import dev.war.sentinel.managers.PlayerStateManager;
 import dev.war.sentinel.managers.SessionManager;
+import dev.war.sentinel.utils.AnsiColor;
+import dev.war.sentinel.utils.Messages;
+import dev.war.sentinel.utils.uuid.UUIDUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +26,11 @@ public class Sentinel extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        saveDefaultConfig();
+        UUIDUtils.loadFromConfig(getConfig());
+
+        Messages.init(this);
+
         this.databaseManager = new DatabaseManager();
         this.databaseManager.connect();
         this.sessionManager = new SessionManager();
@@ -33,7 +42,7 @@ public class Sentinel extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerListener(authManager, playerStateManager, sessionManager), this);
 
-        getLogger().info("\u001B[95;1mSentinel is watching\u001B[0m");
+        getLogger().info(AnsiColor.LIGHT_PURPLE + "Sentinel is watching" + AnsiColor.RESET);
     }
 
     @Override
@@ -45,10 +54,11 @@ public class Sentinel extends JavaPlugin {
             try {
                 stateManager.saveIfNotRestricted(player);
             } catch (Exception ex) {
-                getLogger().warning("Erro ao salvar estado de " + player.getName() + ": " + ex.getMessage());
+                getLogger().warning(Messages.get("server.disable.saving_error")
+                        .replace("%player%", player.getName())
+                        .replace("%error%", ex.getMessage()));
             }
         }
-
     }
 
     public static Sentinel getInstance() {

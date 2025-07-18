@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cUso: /sentinel reloadlang"
+  language_reloaded: "&d¡Idioma del servidor recargado!"
+
+changepassword:
+  usage: "&dUso correcto: /changepassword <contraseña antigua> <contraseña nueva>"
+  not_logged_in: "&cDebes iniciar sesión para cambiar tu contraseña."
+  wrong_old_password: "&cContraseña antigua incorrecta."
+  success: "&d¡Contraseña cambiada con éxito!"
+
+login:
+  usage: "&dUso correcto: /login <contraseña>"
+  not_registered: "&cNo estás registrado."
+  already_logged_in: "&cYa has iniciado sesión."
+  wrong_password: "&cContraseña incorrecta."
+  success: "&d¡Inicio de sesión exitoso!"
+
+register:
+  usage: "&dUso correcto: /register <contraseña>"
+  already_registered: "&cYa estás registrado."
+  success: "&d¡Registrado con éxito!"
+
+unregister:
+  no_permission: "&cSolo los operadores pueden usar este comando."
+  usage: "&dUso correcto: /unregister <jugador>"
+  not_registered: "&cEste jugador no está registrado."
+  success: "&dCuenta de %player% eliminada con éxito."
+  kicked: "&cTu cuenta ha sido desregistrada."
+
+auth:
+  already_logged_in: "&cTu cuenta ya está conectada desde otra ubicación."
+  must_authenticate: "&c¡Debes autenticarte primero!"
+  auto_login_success: "&d¡Auto inicio de sesión exitoso!"
+  prompt_login: "&dUsa /login <contraseña>"
+  prompt_register: "&dUsa /register <contraseña>"
+
+server:
+  only_players: "Comando disponible solo para jugadores."
+  login_success: "Inicio de sesión exitoso para el jugador '%player%' desde IP %ip%"
+  login_failed: "Intento de inicio de sesión fallido para el jugador '%player%' desde IP %ip%"
+  password_changed: "Contraseña del jugador '%player%' cambiada desde IP %ip%"
+  register_success: "Registro exitoso para el jugador '%player%' desde IP %ip%"
+  session_resumed: "Sesión reanudada para el jugador '%player%' desde IP %ip%"
+  disable.saving_error: "Error al guardar el estado del jugador %player%: %error%"
+  database:
+    connect_error: "Error al conectar con la base de datos."
+    close_error: "Error al cerrar la conexión con la base de datos."
+    access_error: "Error al acceder a la base de datos."
+    update_error: "Error al actualizar la base de datos."

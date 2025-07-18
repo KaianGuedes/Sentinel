@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cUsage: /sentinel reloadlang"
+  language_reloaded: "&dServer language reloaded!"
+
+changepassword:
+  usage: "&dCorrect usage: /changepassword <old password> <new password>"
+  not_logged_in: "&cYou must be logged in to change your password."
+  wrong_old_password: "&cIncorrect old password."
+  success: "&dPassword changed successfully!"
+
+login:
+  usage: "&dCorrect usage: /login <password>"
+  not_registered: "&cYou are not registered."
+  already_logged_in: "&cYou are already logged in."
+  wrong_password: "&cIncorrect password."
+  success: "&dLogin successful!"
+
+register:
+  usage: "&dCorrect usage: /register <password>"
+  already_registered: "&cYou are already registered."
+  success: "&dSuccessfully registered!"
+
+unregister:
+  no_permission: "&cOnly operators can use this command."
+  usage: "&dCorrect usage: /unregister <player>"
+  not_registered: "&cThis player is not registered."
+  success: "&dAccount of %player% successfully removed."
+  kicked: "&cYour account has been unregistered."
+
+auth:
+  already_logged_in: "&cYour account is already logged in from another location."
+  must_authenticate: "&cYou must authenticate first!"
+  auto_login_success: "&dAuto-login successful!"
+  prompt_login: "&dUse /login <password>"
+  prompt_register: "&dUse /register <password>"
+
+server:
+  only_players: "Command only available to players."
+  login_success: "Login successful for player '%player%' from IP %ip%"
+  login_failed: "Failed login attempt for player '%player%' from IP %ip%"
+  password_changed: "Password for player '%player%' was changed from IP %ip%"
+  register_success: "Registration successful for player '%player%' from IP %ip%"
+  session_resumed: "Session resumed for player '%player%' from IP %ip%"
+  disable.saving_error: "Error saving state of player %player%: %error%"
+  database:
+    connect_error: "Error connecting to the database."
+    close_error: "Error closing the database connection."
+    access_error: "Error accessing the database."
+    update_error: "Error updating the database."

@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cBenutzung: /sentinel reloadlang"
+  language_reloaded: "&dServersprache neu geladen!"
+
+changepassword:
+  usage: "&dRichtige Verwendung: /changepassword <altes Passwort> <neues Passwort>"
+  not_logged_in: "&cDu musst eingeloggt sein, um dein Passwort zu ändern."
+  wrong_old_password: "&cFalsches altes Passwort."
+  success: "&dPasswort erfolgreich geändert!"
+
+login:
+  usage: "&dRichtige Verwendung: /login <Passwort>"
+  not_registered: "&cDu bist nicht registriert."
+  already_logged_in: "&cDu bist bereits eingeloggt."
+  wrong_password: "&cFalsches Passwort."
+  success: "&dLogin erfolgreich!"
+
+register:
+  usage: "&dRichtige Verwendung: /register <Passwort>"
+  already_registered: "&cDu bist bereits registriert."
+  success: "&dErfolgreich registriert!"
+
+unregister:
+  no_permission: "&cNur Operatoren können diesen Befehl verwenden."
+  usage: "&dRichtige Verwendung: /unregister <Spieler>"
+  not_registered: "&cDieser Spieler ist nicht registriert."
+  success: "&dAccount von %player% erfolgreich entfernt."
+  kicked: "&cDein Account wurde gelöscht."
+
+auth:
+  already_logged_in: "&cDein Account ist bereits von einem anderen Ort eingeloggt."
+  must_authenticate: "&cDu musst dich zuerst authentifizieren!"
+  auto_login_success: "&dAutomatischer Login erfolgreich!"
+  prompt_login: "&dBenutze /login <Passwort>"
+  prompt_register: "&dBenutze /register <Passwort>"
+
+server:
+  only_players: "Befehl nur für Spieler verfügbar."
+  login_success: "Login erfolgreich für Spieler '%player%' von IP %ip%"
+  login_failed: "Fehlgeschlagener Loginversuch für Spieler '%player%' von IP %ip%"
+  password_changed: "Passwort für Spieler '%player%' wurde von IP %ip% geändert"
+  register_success: "Registrierung erfolgreich für Spieler '%player%' von IP %ip%"
+  session_resumed: "Sitzung für Spieler '%player%' von IP %ip% fortgesetzt"
+  disable.saving_error: "Fehler beim Speichern des Zustands von Spieler %player%: %error%"
+  database:
+    connect_error: "Fehler beim Verbinden mit der Datenbank."
+    close_error: "Fehler beim Schließen der Datenbankverbindung."
+    access_error: "Fehler beim Zugriff auf die Datenbank."
+    update_error: "Fehler beim Aktualisieren der Datenbank."

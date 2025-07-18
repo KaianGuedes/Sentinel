@@ -25,7 +25,16 @@ commands:
     usage: /unregister <player>
     permission: sentinel.unregister
 
+  sentinel:
+    description: Plugin's main command
+    usage: /sentinel
+    permission: sentinel.use
+
 permissions:
+  sentinel.use:
+    description: Allows use of the main Sentinel command
+    default: op
+
   sentinel.login:
     description: Allows player to log in
     default: true

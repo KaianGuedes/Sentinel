@@ -5,8 +5,8 @@ plugins {
 }
 
 group = 'dev.war'
-version = '0.1.0'
-ext.apiVersion = '1.21'
+version = '0.2.0'
+ext.apiVersion = '1.20'
 
 repositories {
     gradlePluginPortal()
@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20-R0.1-SNAPSHOT")
     implementation 'org.mindrot:jbcrypt:0.4'
     compileOnly 'org.apache.logging.log4j:log4j-core:2.24.1'
 }
@@ -37,11 +37,11 @@ tasks.build {
 
 tasks {
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion("1.20")
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

@@ -1,0 +1,49 @@
+sentinel:
+  usage: "&cИспользование: /sentinel reloadlang"
+  language_reloaded: "&dЯзык сервера перезагружен!"
+
+changepassword:
+  usage: "&dПравильное использование: /changepassword <старый пароль> <новый пароль>"
+  not_logged_in: "&cВы должны войти в систему, чтобы изменить пароль."
+  wrong_old_password: "&cНеверный старый пароль."
+  success: "&dПароль успешно изменён!"
+
+login:
+  usage: "&dПравильное использование: /login <пароль>"
+  not_registered: "&cВы не зарегистрированы."
+  already_logged_in: "&cВы уже вошли в систему."
+  wrong_password: "&cНеверный пароль."
+  success: "&dВход выполнен успешно!"
+
+register:
+  usage: "&dПравильное использование: /register <пароль>"
+  already_registered: "&cВы уже зарегистрированы."
+  success: "&dУспешная регистрация!"
+
+unregister:
+  no_permission: "&cТолько операторы могут использовать эту команду."
+  usage: "&dПравильное использование: /unregister <игрок>"
+  not_registered: "&cЭтот игрок не зарегистрирован."
+  success: "&dАккаунт игрока %player% успешно удалён."
+  kicked: "&cВаш аккаунт был удалён."
+
+auth:
+  already_logged_in: "&cВаш аккаунт уже вошёл с другого места."
+  must_authenticate: "&cСначала вы должны пройти аутентификацию!"
+  auto_login_success: "&dАвтоматический вход выполнен успешно!"
+  prompt_login: "&dИспользуйте /login <пароль>"
+  prompt_register: "&dИспользуйте /register <пароль>"
+
+server:
+  only_players: "Команда доступна только для игроков."
+  login_success: "Вход игрока '%player%' с IP %ip% выполнен успешно"
+  login_failed: "Неудачная попытка входа игрока '%player%' с IP %ip%"
+  password_changed: "Пароль игрока '%player%' был изменён с IP %ip%"
+  register_success: "Регистрация игрока '%player%' с IP %ip% прошла успешно"
+  session_resumed: "Сессия игрока '%player%' с IP %ip% возобновлена"
+  disable.saving_error: "Ошибка сохранения состояния игрока %player%: %error%"
+  database:
+    connect_error: "Ошибка подключения к базе данных."
+    close_error: "Ошибка закрытия соединения с базой данных."
+    access_error: "Ошибка доступа к базе данных."
+    update_error: "Ошибка обновления базы данных."
