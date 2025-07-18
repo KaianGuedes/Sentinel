@@ -12,6 +12,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.*;
@@ -30,6 +31,7 @@ public class PlayerListener implements Listener {
         this.sessionManager = sessionManager;
     }
 
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerLogin(PlayerLoginEvent e) {
         String playerName = e.getPlayer().getName();
         UUID uuid = UUIDUtils.getCorrectUUID(playerName);
@@ -39,7 +41,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -61,7 +63,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -75,7 +77,7 @@ public class PlayerListener implements Listener {
         stateManager.saveIfNotRestricted(p);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onMove(PlayerMoveEvent e) {
         UUID uuid = UUIDUtils.getCorrectUUID(e.getPlayer().getName());
 
@@ -84,7 +86,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onCommand(PlayerCommandPreprocessEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -99,7 +101,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onSpectatorInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -109,7 +111,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onSpectatorTeleport(PlayerTeleportEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -120,7 +122,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onInventoryOpen(InventoryOpenEvent e) {
         if (e.getPlayer() instanceof Player p) {
             UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
@@ -131,7 +133,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onChat(AsyncChatEvent e) {
         Player p = e.getPlayer();
         UUID uuid = UUIDUtils.getCorrectUUID(p.getName());
