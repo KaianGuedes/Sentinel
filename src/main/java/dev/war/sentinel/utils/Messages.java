@@ -22,8 +22,12 @@ public class Messages {
             langFolder.mkdirs();
 
             instance.saveResource("lang/en-US.yml", false);
+            instance.saveResource("lang/en-GB.yml", false);
             instance.saveResource("lang/pt-BR.yml", false);
+            instance.saveResource("lang/pt-PT.yml", false);
             instance.saveResource("lang/es-ES.yml", false);
+            instance.saveResource("lang/de-DE.yml", false);
+            instance.saveResource("lang/ru-RU.yml", false);
         }
 
         for (File file : langFolder.listFiles()) {
