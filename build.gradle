@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.war'
-version = '0.2.0'
+version = '0.2.1'
 ext.apiVersion = '1.20'
 
 repositories {
@@ -27,18 +27,21 @@ dependencies {
     compileOnly 'org.apache.logging.log4j:log4j-core:2.24.1'
 }
 
+tasks.named('jar') {
+    archiveClassifier.set('thin')
+}
+
 tasks.named('shadowJar') {
+    archiveClassifier.set('')
     relocate 'org.mindrot.jbcrypt', 'dev.war.sentinel.libs.bcrypt'
+}
+
+tasks.named('runServer') {
+    minecraftVersion("1.20")
 }
 
 tasks.build {
     dependsOn shadowJar
-}
-
-tasks {
-    runServer {
-        minecraftVersion("1.20")
-    }
 }
 
 def targetJavaVersion = 17
