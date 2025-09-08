@@ -33,7 +33,7 @@ public class Sentinel extends JavaPlugin {
 
         this.databaseManager = new DatabaseManager();
         this.databaseManager.connect();
-        this.sessionManager = new SessionManager();
+        this.sessionManager = new SessionManager(this);
         this.authManager = new AuthManager(databaseManager, sessionManager);
         this.playerStateManager = new PlayerStateManager(this);
 
