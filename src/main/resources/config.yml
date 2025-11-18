@@ -12,3 +12,9 @@ language: en-US
 #   online   - Use Mojang authenticated UUIDs. (accounts tied to Mojang accounts).
 #   offline  - Generate UUIDs based on player names (accounts tied to usernames).
 uuid-mode: adapt
+
+# Session configuration
+session:
+  # The duration of auto-login sessions in minutes.
+  # Default: 15
+  duration-minutes: 15

@@ -1,5 +1,8 @@
 package dev.war.sentinel.managers;
 
+import dev.war.sentinel.Sentinel;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,7 +10,13 @@ import java.util.concurrent.TimeUnit;
 
 public class SessionManager {
     private final Map<UUID, Map<String, Long>> ipLogouts = new ConcurrentHashMap<>();
-    private static final long EXPIRY_MILLIS = TimeUnit.MINUTES.toMillis(15);
+    private final long expiryMillis;
+
+    public SessionManager(Sentinel plugin) {
+        FileConfiguration config = plugin.getConfig();
+        long duration = config.getLong("session.duration-minutes", 15);
+        this.expiryMillis = TimeUnit.MINUTES.toMillis(duration);
+    }
 
     public void recordLogout(UUID uuid, String ip) {
         ipLogouts.computeIfAbsent(uuid, u -> new ConcurrentHashMap<>()).put(ip, System.currentTimeMillis());
@@ -20,7 +29,7 @@ public class SessionManager {
         if (lastLogout == null) return false;
 
         long elapsed = System.currentTimeMillis() - lastLogout;
-        if (elapsed <= EXPIRY_MILLIS) {
+        if (elapsed <= expiryMillis) {
             return true;
         }
 
