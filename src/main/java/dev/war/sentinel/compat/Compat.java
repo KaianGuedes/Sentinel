@@ -10,17 +10,19 @@ public class Compat {
     }
 
     private static CompatAdapter resolveAdapter() {
-        String version = Bukkit.getBukkitVersion();
+        try {
+            MinecraftVersion version = MinecraftVersion.parse(Bukkit.getBukkitVersion());
+            return chooseAdapter(version);
+        } catch (Throwable t) {
+            return new CompatAdapter_Fallback();
+        }
+    }
 
-        if (isAtLeast(version, "1.21")) {
+    static CompatAdapter chooseAdapter(MinecraftVersion version) {
+        if (version == null || version.isAtLeast(1, 21)) {
             return resolveAdapterFor_1_21();
         }
-
-        if (isAtLeast(version, "1.20")) {
-            return resolveAdapterFor_1_20();
-        }
-
-        throw new UnsupportedOperationException("Unsupported Minecraft version: " + version);
+        return resolveAdapterFor_1_20();
     }
 
     private static CompatAdapter resolveAdapterFor_1_21() {
@@ -34,7 +36,7 @@ public class Compat {
             return new CompatAdapter_1_20_3();
         }
 
-        return new CompatAdapter_1_20();
+        return hasField(registryClass, "POTION_EFFECT_TYPE") ? new CompatAdapter_1_20() : new CompatAdapter_Fallback();
     }
 
     private static CompatAdapter resolveAdapterFor_1_20() {
@@ -44,11 +46,7 @@ public class Compat {
             return new CompatAdapter_1_20_3();
         }
 
-        return new CompatAdapter_1_20();
-    }
-
-    private static boolean isAtLeast(String currentVersion, String prefix) {
-        return currentVersion.startsWith(prefix);
+        return hasField(registryClass, "POTION_EFFECT_TYPE") ? new CompatAdapter_1_20() : new CompatAdapter_Fallback();
     }
 
     private static boolean hasField(Class<?> clazz, String fieldName) {
@@ -64,7 +62,7 @@ public class Compat {
         try {
             return Class.forName("org.bukkit.Registry");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Failed to load org.bukkit.Registry", e);
+            throw new IllegalStateException("Failed to load org.bukkit.Registry", e);
         }
     }
 }
