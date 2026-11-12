@@ -14,10 +14,31 @@ uuid-mode: adapt
 
 # Session configuration
 session:
-  # The duration of auto-login sessions in minutes.
-  # Default: 15
-  duration-minutes: 15
+  enabled: false
 
+  # The duration of auto-login sessions in minutes.
+  # Default: 5
+  duration-minutes: 5
+
+login:
   # How long a player has to login/register before being kicked
   # Default: 60
   timeout-seconds: 60
+  max-attempts-per-player: 5
+  max-attempts-per-ip: 10
+  lockout-seconds: 300
+
+password:
+  min-length: 8
+  max-length: 64
+  bcrypt-cost: 12
+
+commands:
+  aliases:
+    login:
+      - l
+    register: []
+    changepassword: []
+
+floodgate:
+  skip-auth: false

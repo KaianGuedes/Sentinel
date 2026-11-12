@@ -8,6 +8,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,10 @@ public class Messages {
             if (file.getName().endsWith(".yml")) {
                 String localeKey = file.getName().replace(".yml", "");
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+                InputStream bundled = instance.getResource("lang/" + file.getName());
+                if (bundled != null) {
+                    config.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(bundled, StandardCharsets.UTF_8)));
+                }
                 languages.put(localeKey, config);
             }
         }
@@ -56,30 +63,46 @@ public class Messages {
         loadServerLanguage(instance);
     }
 
-    public static String get(Player player, String path) {
+    private static String lookup(YamlConfiguration config, String path) {
+        String value = config != null ? config.getString(path) : null;
+        if (value == null) {
+            YamlConfiguration fallback = languages.get("en-US");
+            value = fallback != null ? fallback.getString(path) : null;
+        }
+        return value != null ? value : "[!] Message not found: " + path;
+    }
+
+    private static String apply(String text, String... replacements) {
+        for (int i = 0; i + 1 < replacements.length; i += 2) {
+            text = text.replace(replacements[i], replacements[i + 1]);
+        }
+        return text;
+    }
+
+    public static String get(Player player, String path, String... replacements) {
         String langTag = player.locale().toLanguageTag();
         YamlConfiguration config = languages.getOrDefault(langTag, languages.get("en-US"));
-        return config != null ? config.getString(path, "[!] Message not found: " + path) : "[!] No language file loaded.";
+        return apply(lookup(config, path), replacements);
     }
 
-    public static Component getComponent(Player player, String path) {
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(get(player, path));
+    public static Component getComponent(Player player, String path, String... replacements) {
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(get(player, path, replacements));
     }
 
-    public static String get(String path) {
+    public static String get(String path, String... replacements) {
         YamlConfiguration config = languages.getOrDefault(serverLanguage, languages.get("en-US"));
-        return config != null ? config.getString(path, "[!] Message not found: " + path) : "[!] No language file loaded.";
+        return apply(lookup(config, path), replacements);
     }
 
-    public static Component getComponent(String path) {
-        return LegacyComponentSerializer.legacyAmpersand().deserialize(get(path));
+    public static Component getComponent(String path, String... replacements) {
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(get(path, replacements));
     }
 
-    public static Component getComponent(CommandSender sender, String path) {
+    public static Component getComponent(CommandSender sender, String path, String... replacements) {
         if (sender instanceof Player player) {
-            return getComponent(player, path);
+            return getComponent(player, path, replacements);
         } else {
-            return getComponent(path);
+            return getComponent(path, replacements);
         }
     }
 

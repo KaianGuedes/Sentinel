@@ -7,6 +7,7 @@ changepassword:
   not_logged_in: "&cYou must be logged in to change your password."
   wrong_old_password: "&cIncorrect old password."
   success: "&dPassword changed successfully!"
+  failed: "&cCould not change your password. Try again later."
 
 login:
   usage: "&dCorrect usage: /login <password>"
@@ -14,11 +15,15 @@ login:
   already_logged_in: "&cYou are already logged in."
   wrong_password: "&cIncorrect password."
   success: "&dLogin successful!"
+  locked_out: "&cToo many failed attempts. Try again in %seconds% seconds."
 
 register:
-  usage: "&dCorrect usage: /register <password>"
+  usage: "&dCorrect usage: /register <password> <password>"
   already_registered: "&cYou are already registered."
   success: "&dSuccessfully registered!"
+  mismatch: "&cThe passwords do not match."
+  name_conflict: "&cThis name is already registered with different capitalization."
+  failed: "&cCould not complete your registration. Try again later."
 
 unregister:
   no_permission: "&cOnly operators can use this command."
@@ -26,6 +31,16 @@ unregister:
   not_registered: "&cThis player is not registered."
   success: "&dAccount of %player% successfully removed."
   kicked: "&cYour account has been unregistered."
+  failed: "&cCould not remove this account. Check the console."
+
+logout:
+  usage: "&dCorrect usage: /logout"
+  kicked: "&dYou have been logged out."
+
+password:
+  too_short: "&cYour password must have at least %min% characters."
+  too_long: "&cYour password must have at most %max% characters."
+  too_long_bytes: "&cYour password is too long (maximum %bytes% bytes)."
 
 auth:
   timeout_kick: "&cYou took too long to authenticate!"
@@ -33,7 +48,11 @@ auth:
   must_authenticate: "&cYou must authenticate first!"
   auto_login_success: "&dAuto-login successful!"
   prompt_login: "&dUse /login <password>"
-  prompt_register: "&dUse /register <password>"
+  prompt_register: "&dUse /register <password> <password>"
+  database_error: "&cAuthentication is temporarily unavailable. Please try again later."
+  busy: "&cPlease wait, your previous request is still being processed."
+  too_many_attempts: "&cToo many failed attempts. You are temporarily locked out."
+  locked_out_join: "&cToo many failed attempts. Try again in %seconds% seconds."
 
 server:
   only_players: "Command only available to players."
@@ -43,8 +62,12 @@ server:
   register_success: "Registration successful for player '%player%' from IP %ip%"
   session_resumed: "Session resumed for player '%player%' from IP %ip%"
   disable.saving_error: "Error saving state of player %player%: %error%"
+  login_locked: "Player '%player%' (IP %ip%) was locked out after too many failed attempts"
+  floodgate_skip: "Bedrock player '%player%' from IP %ip% was authenticated by Floodgate, login skipped"
+  floodgate_missing: "floodgate.skip-auth is enabled but Floodgate is not installed. Bedrock players will use /login."
   database:
     connect_error: "Error connecting to the database."
     close_error: "Error closing the database connection."
     access_error: "Error accessing the database."
     update_error: "Error updating the database."
+    reconnecting: "Database connection lost, reconnecting."

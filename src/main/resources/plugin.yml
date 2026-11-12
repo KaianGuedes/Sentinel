@@ -1,18 +1,17 @@
 name: Sentinel
 main: dev.war.sentinel.Sentinel
 version: ${version}
-api-version: ${apiVersion}
+api-version: '${apiVersion}'
+softdepend: [floodgate]
 commands:
   login:
-    aliases: [l]
     description: Logs in with the registered password
     usage: /login <password>
     permission: sentinel.login
 
   register:
-    aliases: [r]
     description: Registers a new account
-    usage: /register <password>
+    usage: /register <password> <password>
     permission: sentinel.register
   logout:
     description: Logout

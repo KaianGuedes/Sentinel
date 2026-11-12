@@ -7,6 +7,7 @@ changepassword:
   not_logged_in: "&cDebes iniciar sesión para cambiar tu contraseña."
   wrong_old_password: "&cContraseña antigua incorrecta."
   success: "&d¡Contraseña cambiada con éxito!"
+  failed: "&cNo se pudo cambiar tu contraseña. Inténtalo de nuevo más tarde."
 
 login:
   usage: "&dUso correcto: /login <contraseña>"
@@ -14,11 +15,15 @@ login:
   already_logged_in: "&cYa has iniciado sesión."
   wrong_password: "&cContraseña incorrecta."
   success: "&d¡Inicio de sesión exitoso!"
+  locked_out: "&cDemasiados intentos fallidos. Inténtalo de nuevo en %seconds% segundos."
 
 register:
-  usage: "&dUso correcto: /register <contraseña>"
+  usage: "&dUso correcto: /register <contraseña> <contraseña>"
   already_registered: "&cYa estás registrado."
   success: "&d¡Registrado con éxito!"
+  mismatch: "&cLas contraseñas no coinciden."
+  name_conflict: "&cEste nombre ya está registrado con otras mayúsculas y minúsculas."
+  failed: "&cNo se pudo completar tu registro. Inténtalo de nuevo más tarde."
 
 unregister:
   no_permission: "&cSolo los operadores pueden usar este comando."
@@ -26,6 +31,16 @@ unregister:
   not_registered: "&cEste jugador no está registrado."
   success: "&dCuenta de %player% eliminada con éxito."
   kicked: "&cTu cuenta ha sido desregistrada."
+  failed: "&cNo se pudo eliminar esta cuenta. Revisa la consola."
+
+logout:
+  usage: "&dUso correcto: /logout"
+  kicked: "&dHas cerrado sesión."
+
+password:
+  too_short: "&cTu contraseña debe tener al menos %min% caracteres."
+  too_long: "&cTu contraseña debe tener como máximo %max% caracteres."
+  too_long_bytes: "&cTu contraseña es demasiado larga (máximo %bytes% bytes)."
 
 auth:
   timeout_kick: "&c¡Tardaste demasiado tiempo en autenticarte!"
@@ -33,7 +48,11 @@ auth:
   must_authenticate: "&c¡Debes autenticarte primero!"
   auto_login_success: "&d¡Auto inicio de sesión exitoso!"
   prompt_login: "&dUsa /login <contraseña>"
-  prompt_register: "&dUsa /register <contraseña>"
+  prompt_register: "&dUsa /register <contraseña> <contraseña>"
+  database_error: "&cLa autenticación no está disponible temporalmente. Inténtalo de nuevo más tarde."
+  busy: "&cEspera, tu solicitud anterior aún se está procesando."
+  too_many_attempts: "&cDemasiados intentos fallidos. Has sido bloqueado temporalmente."
+  locked_out_join: "&cDemasiados intentos fallidos. Inténtalo de nuevo en %seconds% segundos."
 
 server:
   only_players: "Comando disponible solo para jugadores."
@@ -43,8 +62,12 @@ server:
   register_success: "Registro exitoso para el jugador '%player%' desde IP %ip%"
   session_resumed: "Sesión reanudada para el jugador '%player%' desde IP %ip%"
   disable.saving_error: "Error al guardar el estado del jugador %player%: %error%"
+  login_locked: "El jugador '%player%' (IP %ip%) fue bloqueado tras demasiados intentos fallidos"
+  floodgate_skip: "El jugador Bedrock '%player%' desde IP %ip% fue autenticado por Floodgate, inicio de sesión omitido"
+  floodgate_missing: "floodgate.skip-auth está activado pero Floodgate no está instalado. Los jugadores Bedrock usarán /login."
   database:
     connect_error: "Error al conectar con la base de datos."
     close_error: "Error al cerrar la conexión con la base de datos."
     access_error: "Error al acceder a la base de datos."
     update_error: "Error al actualizar la base de datos."
+    reconnecting: "Conexión con la base de datos perdida, reconectando."

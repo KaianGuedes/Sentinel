@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'dev.war'
-version = '0.2.2'
+version = '0.3.0'
 ext.apiVersion = '1.20'
 
 repositories {
