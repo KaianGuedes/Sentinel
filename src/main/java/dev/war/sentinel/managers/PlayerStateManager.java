@@ -1,7 +1,6 @@
 package dev.war.sentinel.managers;
 
 import dev.war.sentinel.Sentinel;
-import dev.war.sentinel.utils.Messages;
 import dev.war.sentinel.utils.uuid.UUIDUtils;
 import dev.war.sentinel.utils.pdc.PlayerPersistentData;
 import dev.war.sentinel.utils.pdc.PlayerPersistentData.PlayerStoredData;
@@ -10,10 +9,8 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 
-import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,20 +18,22 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PlayerStateManager {
 
     private final Sentinel plugin;
-    private final Set<UUID> restrictedPlayers = new HashSet<>();
-    private final Map<UUID, BukkitTask> timeoutTasks = new ConcurrentHashMap<>();
+    private final Set<UUID> restrictedPlayers = ConcurrentHashMap.newKeySet();
 
     public PlayerStateManager(Sentinel plugin) {
         this.plugin = plugin;
     }
 
-    public void restrict(Player player) {
-        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
+    public void restrict(Player player, boolean discardStoredState) {
+        UUID uuid = UUIDUtils.getCorrectUUID(player);
 
         if (restrictedPlayers.contains(uuid)) return;
 
         PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
-        if (pdc.getAllStoredData() == null) {
+        if (discardStoredState) {
+            pdc.clearAll();
+            pdc.saveAll(List.of(), Bukkit.getDefaultGameMode(), false, player.getLocation());
+        } else if (!pdc.hasStoredData()) {
             pdc.saveAll(
                     player.getActivePotionEffects(),
                     player.getGameMode(),
@@ -48,36 +47,29 @@ public class PlayerStateManager {
         player.setGameMode(GameMode.SPECTATOR);
         player.setOp(false);
         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 1, false, false));
-
-        long timeoutSeconds = plugin.getConfig().getLong("auth.timeout-seconds", 30);
-        BukkitTask task = Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            if (player.isOnline() && isRestricted(player)) {
-                player.kick(Messages.getComponent(player, "auth.timeout_kick"));
-            }
-        }, timeoutSeconds * 20L);
-
-        timeoutTasks.put(uuid, task);
     }
 
     public void restoreState(Player player) {
-        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
+        UUID uuid = UUIDUtils.getCorrectUUID(player);
         if (!restrictedPlayers.contains(uuid)) return;
-
-        cancelTimeoutTask(uuid);
 
         PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
         PlayerStoredData data = pdc.getAllStoredData();
 
-        if (data == null || data.gameMode() == null) return;
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
+
+        if (data == null || data.gameMode() == null) {
+            player.setGameMode(Bukkit.getDefaultGameMode());
+            restrictedPlayers.remove(uuid);
+            return;
+        }
 
         player.setGameMode(data.gameMode());
 
         if (data.wasOp()) {
             player.setOp(true);
-        }
-
-        for (PotionEffect effect : player.getActivePotionEffects()) {
-            player.removePotionEffect(effect.getType());
         }
 
         for (PotionEffect effect : data.potionEffects()) {
@@ -91,30 +83,25 @@ public class PlayerStateManager {
         restrictedPlayers.remove(uuid);
     }
 
-    public void cancelTimeoutTask(UUID uuid) {
-        BukkitTask task = timeoutTasks.remove(uuid);
-        if (task != null) {
-            task.cancel();
-        }
+    public void saveCurrentState(Player player) {
+        PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
+        pdc.saveAll(
+                player.getActivePotionEffects(),
+                player.getGameMode(),
+                player.isOp(),
+                player.getLocation()
+        );
     }
 
-    public void saveIfNotRestricted(Player player) {
-        if (!isRestricted(player)) {
-            PlayerPersistentData pdc = new PlayerPersistentData(plugin, player);
-            pdc.saveAll(
-                    player.getActivePotionEffects(),
-                    player.getGameMode(),
-                    player.isOp(),
-                    player.getLocation()
-            );
-        }
+    public void clearStoredData(Player player) {
+        new PlayerPersistentData(plugin, player).clearAll();
+    }
+
+    public void release(UUID uuid) {
+        restrictedPlayers.remove(uuid);
     }
 
     public boolean isRestricted(UUID uuid) {
         return restrictedPlayers.contains(uuid);
-    }
-
-    public boolean isRestricted(Player player) {
-        return isRestricted(UUIDUtils.getCorrectUUID(player.getName()));
     }
 }

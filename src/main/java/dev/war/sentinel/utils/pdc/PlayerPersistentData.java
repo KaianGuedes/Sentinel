@@ -12,6 +12,11 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.*;
 
 public class PlayerPersistentData extends AbstractPersistentData {
+    private static final List<String> STORED_KEYS = List.of(
+            "was_op", "original_gamemode", "potion_effects",
+            "loc_world", "loc_x", "loc_y", "loc_z", "loc_yaw", "loc_pitch"
+    );
+
     private final Player player;
 
     public PlayerPersistentData(Plugin plugin, Player player) {
@@ -53,7 +58,20 @@ public class PlayerPersistentData extends AbstractPersistentData {
         return getSavedLocation();
     }
 
+    public boolean hasStoredData() {
+        return has(key("was_op"), PersistentDataType.BYTE) || has(key("loc_world"), PersistentDataType.STRING);
+    }
+
+    public void clearAll() {
+        for (String id : STORED_KEYS) {
+            remove(key(id));
+        }
+    }
+
     public PlayerStoredData getAllStoredData() {
+        if (!hasStoredData()) {
+            return null;
+        }
         return new PlayerStoredData(
                 getStoredPotionEffects(),
                 getStoredGameMode(),
