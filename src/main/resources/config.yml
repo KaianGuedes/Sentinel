@@ -5,7 +5,6 @@
 # the "lang" folder with the language code as the file name.
 language: en-US
 
-
 # Determines how player UUIDs are resolved.
 # Options:
 #   adapt    - Automatically choose based on the server's online mode.
@@ -18,3 +17,7 @@ session:
   # The duration of auto-login sessions in minutes.
   # Default: 15
   duration-minutes: 15
+
+  # How long a player has to login/register before being kicked
+  # Default: 60
+  timeout-seconds: 60

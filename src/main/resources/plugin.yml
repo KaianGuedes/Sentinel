@@ -14,6 +14,10 @@ commands:
     description: Registers a new account
     usage: /register <password>
     permission: sentinel.register
+  logout:
+    description: Logout
+    usage: /logout
+    permission: sentinel.logout
 
   changepassword:
     description: Changes your account password
@@ -41,6 +45,10 @@ permissions:
 
   sentinel.register:
     description: Allows player to register
+    default: true
+
+  sentinel.logout:
+    description: Allows player to logout
     default: true
 
   sentinel.changepassword:

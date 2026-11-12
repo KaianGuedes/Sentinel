@@ -28,6 +28,7 @@ unregister:
   kicked: "&cSua conta foi desregistrada."
 
 auth:
+  timeout_kick: "&cVocê demorou muito para se autenticar!"
   already_logged_in: "&cSua conta já está conectada de outro local."
   must_authenticate: "&cVocê deve se autenticar primeiro!"
   auto_login_success: "&dAutologado com sucesso!"

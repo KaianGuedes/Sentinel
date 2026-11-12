@@ -74,6 +74,8 @@ public class PlayerListener implements Listener {
             sessionManager.recordLogout(uuid, ip);
         }
 
+        stateManager.cancelTimeoutTask(uuid);
+
         stateManager.saveIfNotRestricted(p);
     }
 

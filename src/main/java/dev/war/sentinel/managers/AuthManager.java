@@ -46,6 +46,10 @@ public class AuthManager {
         setLoggedIn(uuid, false);
     }
 
+    public void logout(UUID uuid) {
+        sessionManager.clear(uuid);
+    }
+
     public void changePassword(UUID uuid, String newPassword) {
         db.changePassword(uuid, newPassword);
     }

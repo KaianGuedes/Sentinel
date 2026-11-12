@@ -28,6 +28,7 @@ unregister:
   kicked: "&cDein Account wurde gelöscht."
 
 auth:
+  timeout_kick: "&cDu hast zu lange für die Authentifizierung gebraucht!"
   already_logged_in: "&cDein Account ist bereits von einem anderen Ort eingeloggt."
   must_authenticate: "&cDu musst dich zuerst authentifizieren!"
   auto_login_success: "&dAutomatischer Login erfolgreich!"

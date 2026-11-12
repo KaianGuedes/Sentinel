@@ -40,6 +40,13 @@ public class SessionManager {
         return false;
     }
 
+    public void clear(UUID uuid) {
+        Map<String, Long> ips = ipLogouts.get(uuid);
+        if (ips != null) {
+            ipLogouts.remove(uuid);
+        }
+    }
+
     public void clear(UUID uuid, String ip) {
         Map<String, Long> ips = ipLogouts.get(uuid);
         if (ips != null) {

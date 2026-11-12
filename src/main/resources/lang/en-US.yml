@@ -28,6 +28,7 @@ unregister:
   kicked: "&cYour account has been unregistered."
 
 auth:
+  timeout_kick: "&cYou took too long to authenticate!"
   already_logged_in: "&cYour account is already logged in from another location."
   must_authenticate: "&cYou must authenticate first!"
   auto_login_success: "&dAuto-login successful!"

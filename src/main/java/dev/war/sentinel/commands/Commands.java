@@ -15,6 +15,7 @@ public class Commands {
     public static void register(Sentinel instance, AuthManager authManager, PlayerStateManager playerStateManager) {
         instance.getCommand("register").setExecutor(new RegisterCommand(authManager, playerStateManager));
         instance.getCommand("login").setExecutor(new LoginCommand(authManager, playerStateManager));
+        instance.getCommand("logout").setExecutor(new LogoutCommand(authManager));
         instance.getCommand("unregister").setExecutor(new UnregisterCommand(authManager));
         instance.getCommand("changepassword").setExecutor(new ChangePasswordCommand(authManager));
         instance.getCommand("sentinel").setExecutor(new SentinelCommand(instance));
