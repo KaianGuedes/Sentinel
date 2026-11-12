@@ -1,20 +1,18 @@
 package dev.war.sentinel.commands;
 
-import dev.war.sentinel.managers.AuthManager;
+import dev.war.sentinel.managers.AuthService;
 import dev.war.sentinel.utils.Messages;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
 public class LogoutCommand implements CommandExecutor {
 
-    private final AuthManager authManager;
+    private final AuthService authService;
 
-    public LogoutCommand(AuthManager authManager) {
-        this.authManager = authManager;
+    public LogoutCommand(AuthService authService) {
+        this.authService = authService;
     }
 
     @Override
@@ -29,22 +27,7 @@ public class LogoutCommand implements CommandExecutor {
             return true;
         }
 
-        UUID uuid = player.getUniqueId();
-
-        if (!authManager.isRegistered(uuid)) {
-            player.sendMessage(Messages.getComponent(player, "auth.must_authenticate"));
-            return true;
-        }
-
-        if (!authManager.isLoggedIn(uuid)) {
-            player.sendMessage(Messages.getComponent(player, "auth.must_authenticate"));
-            return true;
-        }
-
-        authManager.logout(uuid);
-
-        player.kick();
-
+        authService.logout(player);
         return true;
     }
 }
