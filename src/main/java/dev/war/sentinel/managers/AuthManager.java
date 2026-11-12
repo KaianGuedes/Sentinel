@@ -1,17 +1,15 @@
 package dev.war.sentinel.managers;
 
-import dev.war.sentinel.utils.IPUtils;
-import dev.war.sentinel.utils.uuid.UUIDUtils;
-import org.bukkit.entity.Player;
+import dev.war.sentinel.utils.PasswordHasher;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AuthManager {
     private final DatabaseManager db;
     private final SessionManager sessionManager;
-    private final Set<UUID> loggedIn = new HashSet<>();
+    private final Set<UUID> loggedIn = ConcurrentHashMap.newKeySet();
 
     public AuthManager(DatabaseManager db, SessionManager sessionManager) {
         this.db = db;
@@ -22,36 +20,55 @@ public class AuthManager {
         return db.isRegistered(uuid);
     }
 
-    public boolean validatePassword(UUID uuid, String password) {
-        return db.validatePassword(uuid, password);
+    public boolean verifyPassword(UUID uuid, String password) {
+        String hash = db.getHash(uuid);
+        return hash != null && PasswordHasher.check(password, hash);
     }
 
-    public boolean login(UUID uuid, String password, String ip) {
-        if (!db.validatePassword(uuid, password)) {
-            return false;
+    public boolean isNameTakenByOther(String nameKey, UUID uuid) {
+        return db.isNameKeyTakenByOther(nameKey, uuid);
+    }
+
+    public UUID findByNameKey(String nameKey) {
+        return db.findUuidByNameKey(nameKey);
+    }
+
+    public void rememberName(UUID uuid, String nameKey) {
+        db.fillNameKeyIfMissing(uuid, nameKey);
+    }
+
+    public boolean hasStateReset(UUID uuid) {
+        return db.hasStateReset(uuid);
+    }
+
+    public void clearStateReset(UUID uuid) {
+        db.clearStateReset(uuid);
+    }
+
+    public boolean register(UUID uuid, String nameKey, String password, String ip, int cost) {
+        return db.register(uuid, nameKey, PasswordHasher.hash(password, cost), ip);
+    }
+
+    public boolean unregister(UUID uuid) {
+        boolean removed = db.unregister(uuid);
+        if (removed) {
+            sessionManager.invalidate(uuid);
+            setLoggedIn(uuid, false);
         }
-
-        setLoggedIn(uuid, true);
-        sessionManager.clear(uuid, ip);
-        return true;
+        return removed;
     }
 
-    public void register(UUID uuid, String password, String ip) {
-        db.register(uuid, password, ip);
-    }
-
-    public void unregister(UUID uuid) {
-        db.unregister(uuid);
-        sessionManager.clearAll(uuid);
-        setLoggedIn(uuid, false);
+    public boolean changePassword(UUID uuid, String newPassword, int cost) {
+        boolean changed = db.changePassword(uuid, PasswordHasher.hash(newPassword, cost));
+        if (changed) {
+            sessionManager.invalidate(uuid);
+        }
+        return changed;
     }
 
     public void logout(UUID uuid) {
-        sessionManager.clear(uuid);
-    }
-
-    public void changePassword(UUID uuid, String newPassword) {
-        db.changePassword(uuid, newPassword);
+        sessionManager.invalidate(uuid);
+        setLoggedIn(uuid, false);
     }
 
     public boolean isLoggedIn(UUID uuid) {
@@ -61,20 +78,5 @@ public class AuthManager {
     public void setLoggedIn(UUID uuid, boolean status) {
         if (status) loggedIn.add(uuid);
         else loggedIn.remove(uuid);
-    }
-
-    public boolean autoLogin(Player player) {
-        UUID uuid = UUIDUtils.getCorrectUUID(player.getName());
-        String ip = IPUtils.getIP(player);
-
-        if (!isRegistered(uuid)) return false;
-
-        if (sessionManager.canAutoLogin(uuid, ip)) {
-            setLoggedIn(uuid, true);
-            sessionManager.clear(uuid, ip);
-            return true;
-        }
-
-        return false;
     }
 }
